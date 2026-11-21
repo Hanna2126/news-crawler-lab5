@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>动态渲染的新闻列表</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;max-width:1000px;margin:30px auto;color:#222}
+h1{font-size:22px;border-bottom:2px solid #b5651d;padding-bottom:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.post-card{border:1px solid #ddd;border-radius:8px;padding:14px;background:#fff}
+.post-card h3{font-size:16px;margin:0 0 8px}
+.post-card a{color:#8a4b08;text-decoration:none}
+.meta{font-size:12px;color:#777}
+</style>
+</head>
+<body>
+<h1>动态渲染的新闻列表</h1>
+<p>本页面的卡片由 JavaScript 在浏览器中注入，静态 HTTP 响应里没有 article 节点。</p>
+<section class="grid" id="grid"></section>
+<script>
+const items = [
+  {title:"Python 3.16 开发者预览版发布", author:"张明", date:"2026-11-10", link:"/article/01"},
+  {title:"校园开源社区举办秋季分享会", author:"李华", date:"2026-11-08", link:"/article/02"},
+  {title:"数据采集课程新增合规实践模块", author:"王芳", date:"2026-11-05", link:"/article/03"},
+  {title:"学生团队完成智能问答系统原型", author:"赵强", date:"2026-11-03", link:"/article/04"},
+  {title:"校园网络完成 IPv6 升级", author:"陈晨", date:"2026-10-30", link:"/article/05"},
+  {title:"图书馆上线文献批量检索工具", author:"刘洋", date:"2026-10-28", link:"/article/06"},
+  {title:"软件工程专业开展项目答辩", author:"周敏", date:"2026-10-25", link:"/article/07"},
+  {title:"实验室开放日展示机器人项目", author:"吴磊", date:"2026-10-22", link:"/article/08"},
+  {title:"校园 App 新增课表同步功能", author:"孙悦", date:"2026-10-20", link:"/article/09"},
+  {title:"信息安全周活动启动", author:"郑凯", date:"2026-10-18", link:"/article/10"},
+  {title:"数据可视化工作坊报名开始", author:"黄静", date:"2026-10-15", link:"/article/11"},
+  {title:"毕业生分享后端开发实习经验", author:"林涛", date:"2026-10-12", link:"/article/12"}
+];
+const grid = document.getElementById("grid");
+for (const item of items) {
+  const card = document.createElement("article");
+  card.className = "post-card";
+  const link = document.createElement("a");
+  link.href = item.link;
+  const heading = document.createElement("h3");
+  heading.textContent = item.title;
+  link.appendChild(heading);
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  const author = document.createElement("span");
+  author.textContent = item.author;
+  const sep = document.createElement("span");
+  sep.textContent = " · ";
+  const time = document.createElement("time");
+  time.dateTime = item.date;
+  time.textContent = item.date;
+  meta.append(author, sep, time);
+  card.append(link, meta);
+  grid.appendChild(card);
+}
+</script>
+</body>
+</html>
